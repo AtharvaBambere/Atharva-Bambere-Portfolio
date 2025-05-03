@@ -1,6 +1,7 @@
 
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Cover } from "@/components/ui/cover";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { ArrowRight } from "lucide-react";
 
 interface HomeSectionProps {
@@ -12,8 +13,8 @@ const HomeSection: React.FC<HomeSectionProps> = ({ scrollToSection }) => {
     <section id="home" className="min-h-screen flex items-center section-padding pt-24">
       <div className="container max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex flex-col justify-center animate-fade-in">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Hello, I'm <span className="text-gradient">Atharva</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/80">
+            Hello, I'm <Cover>Atharva</Cover>
           </h1>
           
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground mb-6 delayed-fade">
@@ -27,20 +28,21 @@ const HomeSection: React.FC<HomeSectionProps> = ({ scrollToSection }) => {
           </p>
           
           <div className="flex flex-wrap gap-4 delayed-fade" style={{ animationDelay: '0.6s' }}>
-            <Button 
+            <AnimatedButton 
               onClick={() => scrollToSection("projects")}
               className="bg-primary hover:bg-primary/90 text-white"
+              icon={<ArrowRight className="ml-2 h-4 w-4" />}
             >
-              View Projects <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+              View Projects
+            </AnimatedButton>
             
-            <Button 
+            <AnimatedButton 
               onClick={() => scrollToSection("contact")}
-              variant="outline" 
-              className="border-primary text-primary hover:bg-primary/10"
+              className="bg-transparent border border-primary text-primary hover:bg-primary/10"
+              icon={<ArrowRight className="ml-2 h-4 w-4" />}
             >
               Contact Me
-            </Button>
+            </AnimatedButton>
           </div>
         </div>
         

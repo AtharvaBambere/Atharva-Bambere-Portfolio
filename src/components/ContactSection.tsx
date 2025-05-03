@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Github, Linkedin, Instagram, Mail, Download } from 'lucide-react';
 
 const ContactSection = () => {
@@ -14,7 +14,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-secondary/20">
+    <section id="contact" className="py-24 bg-gradient-to-b from-background to-secondary/30">
       <div className="container">
         <h2 className="section-title">
           Let's Work <span className="text-gradient">Together</span>
@@ -28,21 +28,20 @@ const ContactSection = () => {
             <div className="bg-card p-8 rounded-xl glass-card">
               <h3 className="text-2xl font-semibold mb-6">Get In Touch</h3>
               <div className="space-y-6">
-                <Button 
-                  className="w-full bg-primary hover:bg-primary/90 text-white flex items-center justify-center gap-2"
+                <AnimatedButton 
+                  className="w-full bg-primary hover:bg-primary/90 text-white"
+                  icon={<Mail className="h-5 w-5" />}
                   onClick={handleEmailClick}
                 >
-                  <Mail className="h-5 w-5" />
                   Drop a Mail
-                </Button>
-                <Button 
-                  variant="outline"
-                  className="w-full border-border hover:bg-secondary flex items-center justify-center gap-2"
+                </AnimatedButton>
+                <AnimatedButton 
+                  className="w-full border border-border hover:bg-secondary"
+                  icon={<Download className="h-5 w-5" />}
                   onClick={handleResumeDownload}
                 >
-                  <Download className="h-5 w-5" />
                   Download Resume
-                </Button>
+                </AnimatedButton>
               </div>
             </div>
           </div>
@@ -61,7 +60,7 @@ const ContactSection = () => {
                   href="https://github.com/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1 glass-card"
+                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition hover:-translate-y-1 glass-card"
                 >
                   <Github className="h-6 w-6" />
                 </a>
@@ -69,7 +68,7 @@ const ContactSection = () => {
                   href="https://linkedin.com/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1 glass-card"
+                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition hover:-translate-y-1 glass-card"
                 >
                   <Linkedin className="h-6 w-6 text-blue-400" />
                 </a>
@@ -77,7 +76,7 @@ const ContactSection = () => {
                   href="https://instagram.com/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1 glass-card"
+                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition hover:-translate-y-1 glass-card"
                 >
                   <Instagram className="h-6 w-6 text-pink-400" />
                 </a>
