@@ -1,7 +1,7 @@
 
-import React from "react";
+import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Download, ArrowRight } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Download } from 'lucide-react';
 
 const ContactSection = () => {
   const handleEmailClick = () => {
@@ -9,114 +9,85 @@ const ContactSection = () => {
   };
 
   const handleResumeDownload = () => {
-    // This is a placeholder. In a real implementation, you'd link to the actual resume file
-    alert("Resume download functionality will be implemented with the actual file.");
+    // This is a placeholder. In a real scenario, you'd provide an actual path to a PDF file
+    alert("Resume download functionality would be linked to an actual file in production");
   };
 
   return (
-    <section id="contact" className="min-h-screen flex items-center section-padding bg-secondary/20">
-      <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Let's <span className="text-gradient">Work Together</span>
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Have a project in mind or just want to chat? Feel free to reach out.
-            I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Contact Information */}
-          <div className="space-y-6 delayed-fade">
-            <div className="bg-card p-6 rounded-lg glass-card">
-              <h3 className="text-xl font-semibold mb-6">Get In Touch</h3>
-              
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-primary/20 p-3 rounded-full">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-medium">atharva.bamberework@gmail.com</p>
-                  </div>
-                </div>
+    <section id="contact" className="py-24 bg-gray-50">
+      <div className="container">
+        <h2 className="section-title">Let's Work Together</h2>
+        <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+          I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+        </p>
+
+        <div className="flex flex-col md:flex-row gap-12 items-center max-w-4xl mx-auto">
+          <div className="md:w-1/2 animate-slide-up">
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <h3 className="text-2xl font-semibold mb-6">Get In Touch</h3>
+              <div className="space-y-6">
+                <Button 
+                  className="w-full bg-primary hover:bg-primary/90 text-white flex items-center justify-center gap-2"
+                  onClick={handleEmailClick}
+                >
+                  <Mail className="h-5 w-5" />
+                  Drop a Mail
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="w-full border-gray-300 hover:bg-gray-100 flex items-center justify-center gap-2"
+                  onClick={handleResumeDownload}
+                >
+                  <Download className="h-5 w-5" />
+                  Download Resume
+                </Button>
               </div>
-            </div>
-            
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-              <Button 
-                onClick={handleEmailClick}
-                className="bg-primary hover:bg-primary/90 text-white"
-              >
-                <Mail className="mr-2 h-4 w-4" /> Drop a Mail
-              </Button>
-              
-              <Button 
-                onClick={handleResumeDownload}
-                variant="outline" 
-                className="border-primary text-primary hover:bg-primary/10"
-              >
-                <Download className="mr-2 h-4 w-4" /> Download Resume
-              </Button>
-            </div>
-            
-            <div className="flex justify-center md:justify-start space-x-4 pt-4">
-              <a 
-                href="https://github.com/" 
-                target="_blank" 
-                rel="noreferrer"
-                className="bg-card p-3 rounded-full hover:bg-card/80 transition-colors"
-              >
-                <Github className="h-6 w-6" />
-              </a>
-              <a 
-                href="https://linkedin.com/" 
-                target="_blank" 
-                rel="noreferrer"
-                className="bg-card p-3 rounded-full hover:bg-card/80 transition-colors"
-              >
-                <Linkedin className="h-6 w-6" />
-              </a>
             </div>
           </div>
-          
-          {/* Contact Form */}
-          <div className="bg-card p-6 rounded-lg shadow-lg glass-card delayed-fade" style={{ animationDelay: "0.3s" }}>
-            <h3 className="text-xl font-semibold mb-6">Send Me a Message</h3>
-            <form className="space-y-4">
+
+          <div className="md:w-1/2 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+            <div className="text-center md:text-left space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full px-4 py-2 bg-secondary/50 rounded-lg border border-border focus:ring-1 focus:ring-primary focus:outline-none"
-                  placeholder="Your name"
-                />
+                <h3 className="text-xl font-semibold mb-2">Connect With Me</h3>
+                <p className="text-gray-600 mb-6">
+                  Let's connect on social platforms and build amazing things together.
+                </p>
               </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full px-4 py-2 bg-secondary/50 rounded-lg border border-border focus:ring-1 focus:ring-primary focus:outline-none"
-                  placeholder="Your email"
-                />
+              
+              <div className="flex justify-center md:justify-start gap-4">
+                <a 
+                  href="https://github.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1"
+                >
+                  <Github className="h-6 w-6 text-gray-800" />
+                </a>
+                <a 
+                  href="https://linkedin.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1"
+                >
+                  <Linkedin className="h-6 w-6 text-blue-600" />
+                </a>
+                <a 
+                  href="https://instagram.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1"
+                >
+                  <Instagram className="h-6 w-6 text-pink-600" />
+                </a>
               </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-1">Message</label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full px-4 py-2 bg-secondary/50 rounded-lg border border-border focus:ring-1 focus:ring-primary focus:outline-none resize-none"
-                  placeholder="Your message"
-                ></textarea>
+              
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <p className="text-center md:text-left text-gray-600">
+                  Alternatively, you can reach me directly at:
+                </p>
+                <p className="text-primary font-medium mt-2">atharva.bamberework@gmail.com</p>
               </div>
-              <Button className="w-full bg-primary hover:bg-primary/90 text-white">
-                Send Message <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </form>
+            </div>
           </div>
         </div>
       </div>

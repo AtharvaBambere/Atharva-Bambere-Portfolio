@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 
 interface Skill {
   name: string;
@@ -27,6 +27,21 @@ const SkillsSection = () => {
     acc[skill.category].push(skill);
     return acc;
   }, {});
+
+  useEffect(() => {
+    // Initialize the width animations when component mounts
+    const bars = document.querySelectorAll('.bg-gradient-to-r');
+    bars.forEach(bar => {
+      const parent = bar.parentElement;
+      if (parent && parent.previousElementSibling) {
+        const percentText = parent.previousElementSibling.lastElementChild?.textContent;
+        if (percentText) {
+          const percent = percentText.replace('%', '');
+          (bar as HTMLElement).style.setProperty('--target-width', percent + '%');
+        }
+      }
+    });
+  }, []);
 
   return (
     <section id="skills" className="min-h-screen flex items-center section-padding bg-secondary/20">
@@ -64,7 +79,6 @@ const SkillsSection = () => {
                       <div 
                         className="h-full bg-gradient-to-r from-primary to-accent" 
                         style={{ 
-                          width: `${skill.level}%`,
                           animationDelay: `${(categoryIndex * 0.1) + (index * 0.1) + 0.5}s`,
                           animation: "growWidth 1s ease-out forwards",
                           width: "0%"
@@ -78,27 +92,14 @@ const SkillsSection = () => {
           ))}
         </div>
         
-        <style jsx>{`
-          @keyframes growWidth {
-            from { width: 0%; }
-            to { width: var(--target-width); }
-          }
-        `}</style>
-        
-        {/* Initialize the width animations */}
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            document.addEventListener('DOMContentLoaded', () => {
-              const bars = document.querySelectorAll('.bg-gradient-to-r');
-              bars.forEach(bar => {
-                const parent = bar.parentElement;
-                const percentText = parent.previousElementSibling.lastElementChild.textContent;
-                const percent = percentText.replace('%', '');
-                bar.style.setProperty('--target-width', percent + '%');
-              });
-            });
-          `
-        }} />
+        <style>
+          {`
+            @keyframes growWidth {
+              from { width: 0%; }
+              to { width: var(--target-width); }
+            }
+          `}
+        </style>
       </div>
     </section>
   );
