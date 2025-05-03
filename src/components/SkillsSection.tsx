@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+
+import React from "react";
+import { WobbleCard } from "@/components/ui/wobble-card";
+import { Code } from 'lucide-react';
 
 interface Skill {
   name: string;
@@ -30,116 +33,97 @@ const SkillsSection = () => {
           My <span className="text-gradient">Skills</span>
         </h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-fr">
-          {/* Frontend Featured Box */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-2 row-span-2 bg-card rounded-xl p-6 glass-card animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <h3 className="text-xl font-semibold mb-6 text-gradient">Frontend Development</h3>
-            <div className="space-y-6">
-              {frontendSkills.map((skill, index) => (
-                <div key={skill.name} className="space-y-2"
-                  style={{ 
-                    animationDelay: `${index * 0.1 + 0.3}s`,
-                    animation: "fadeIn 0.8s ease-out forwards",
-                    opacity: 0
-                  }}
-                >
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">{skill.name}</span>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
+          <WobbleCard
+            containerClassName="col-span-1 lg:col-span-2 h-full bg-primary/80 min-h-[500px] lg:min-h-[300px]"
+            className=""
+          >
+            <div className="max-w-xs">
+              <h2 className="text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
+                Frontend Development
+              </h2>
+              <p className="mt-4 text-left text-base/6 text-neutral-200 mb-6">
+                Building beautiful, responsive, and user-friendly interfaces
+              </p>
+              
+              <div className="space-y-6">
+                {frontendSkills.map((skill, index) => (
+                  <div key={skill.name} className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium text-white">{skill.name}</span>
+                      <span className="text-sm text-white/70">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-white/20 h-2 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-white/70" 
+                        style={{ width: `${skill.level}%` }}
+                      ></div>
+                    </div>
                   </div>
-                  <div className="w-full bg-secondary h-2 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-primary to-accent" 
-                      style={{ 
-                        animationDelay: `${index * 0.1 + 0.6}s`,
-                        animation: "growWidth 1s ease-out forwards",
-                        width: "0%",
-                        "--target-width": `${skill.level}%`
-                      } as React.CSSProperties}
-                    ></div>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+            <Code className="absolute -right-4 lg:-right-[10%] -bottom-10 h-32 w-32 text-white/30" />
+          </WobbleCard>
           
-          {/* Backend Box */}
-          <div className="col-span-1 md:col-span-1 lg:col-span-2 row-span-1 bg-card rounded-xl p-6 glass-card animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <h3 className="text-xl font-semibold mb-4 text-gradient">Backend Development</h3>
-            <div className="space-y-4">
+          <WobbleCard containerClassName="col-span-1 min-h-[300px] bg-accent/80">
+            <h2 className="text-left text-balance text-base md:text-xl lg:text-2xl font-semibold tracking-[-0.015em] text-white">
+              Backend Development
+            </h2>
+            <p className="mt-2 text-left text-base/6 text-neutral-200">
+              Building robust and scalable server-side applications
+            </p>
+            
+            <div className="space-y-4 mt-4">
               {backendSkills.map((skill, index) => (
-                <div key={skill.name} className="space-y-2"
-                  style={{ 
-                    animationDelay: `${index * 0.1 + 0.4}s`,
-                    animation: "fadeIn 0.8s ease-out forwards",
-                    opacity: 0
-                  }}
-                >
+                <div key={skill.name} className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="font-medium">{skill.name}</span>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                    <span className="font-medium text-white">{skill.name}</span>
+                    <span className="text-sm text-white/70">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-secondary h-2 rounded-full overflow-hidden">
+                  <div className="w-full bg-white/20 h-2 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-primary to-accent" 
-                      style={{ 
-                        animationDelay: `${index * 0.1 + 0.7}s`,
-                        animation: "growWidth 1s ease-out forwards",
-                        width: "0%",
-                        "--target-width": `${skill.level}%`
-                      } as React.CSSProperties}
+                      className="h-full bg-white/70" 
+                      style={{ width: `${skill.level}%` }}
                     ></div>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </WobbleCard>
           
-          {/* Other Skills Boxes */}
-          {otherSkills.map((skill, index) => (
-            <div 
-              key={skill.name} 
-              className="col-span-1 bg-card rounded-xl p-6 glass-card animate-fade-in"
-              style={{ animationDelay: `${0.3 + index * 0.1}s` }}
-            >
-              <h3 className="text-lg font-semibold mb-4 text-gradient">{skill.category}</h3>
-              <div className="space-y-4">
+          <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-indigo-800/80 min-h-[300px] lg:min-h-[250px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+              <div>
+                <h2 className="text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
+                  Additional Skills
+                </h2>
+                <p className="mt-2 text-left text-base/6 text-neutral-200 mb-4">
+                  More tools and technologies I work with
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                {otherSkills.map((skill) => (
+                  <div key={skill.name} className="space-y-2">
+                    <span className="font-medium text-white">{skill.name}</span>
+                    <div className="w-full bg-white/20 h-2 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-white/70" 
+                        style={{ width: `${skill.level}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+                
                 <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">{skill.name}</span>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-secondary h-2 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-primary to-accent" 
-                      style={{ 
-                        animationDelay: `${0.5 + index * 0.1}s`,
-                        animation: "growWidth 1s ease-out forwards",
-                        width: "0%",
-                        "--target-width": `${skill.level}%`
-                      } as React.CSSProperties}
-                    ></div>
-                  </div>
+                  <span className="font-medium text-white">Experience</span>
+                  <p className="text-sm text-white/70">5+ years professional development</p>
                 </div>
               </div>
             </div>
-          ))}
-          
-          {/* Experience Box */}
-          <div className="col-span-1 md:col-span-1 lg:col-span-2 row-span-1 bg-card rounded-xl p-6 glass-card animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <h3 className="text-xl font-semibold mb-4 text-gradient">Experience</h3>
-            <p className="text-muted-foreground">5+ years of professional development experience creating modern, responsive web applications with cutting-edge technologies.</p>
-          </div>
+          </WobbleCard>
         </div>
-        
-        <style>
-          {`
-            @keyframes growWidth {
-              from { width: 0%; }
-              to { width: var(--target-width); }
-            }
-          `}
-        </style>
       </div>
     </section>
   );

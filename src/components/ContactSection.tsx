@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Github, Linkedin, Instagram, Mail, Download } from 'lucide-react';
 
 const ContactSection = () => {
@@ -28,21 +28,21 @@ const ContactSection = () => {
             <div className="bg-card p-8 rounded-xl glass-card">
               <h3 className="text-2xl font-semibold mb-6">Get In Touch</h3>
               <div className="space-y-6">
-                <Button 
-                  className="w-full bg-primary hover:bg-primary/90 text-white flex items-center justify-center gap-2"
+                <AnimatedButton 
+                  className="w-full"
                   onClick={handleEmailClick}
+                  icon={<Mail className="h-5 w-5" />}
                 >
-                  <Mail className="h-5 w-5" />
                   Drop a Mail
-                </Button>
-                <Button 
+                </AnimatedButton>
+                <AnimatedButton 
                   variant="outline"
-                  className="w-full border-border hover:bg-secondary flex items-center justify-center gap-2"
+                  className="w-full"
                   onClick={handleResumeDownload}
+                  icon={<Download className="h-5 w-5" />}
                 >
-                  <Download className="h-5 w-5" />
                   Download Resume
-                </Button>
+                </AnimatedButton>
               </div>
             </div>
           </div>
