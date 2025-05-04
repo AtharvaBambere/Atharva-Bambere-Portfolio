@@ -1,11 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from "@/lib/utils";
-import { Code } from 'lucide-react';
+import { Code, Menu } from 'lucide-react';
+import { 
+  Drawer, 
+  DrawerContent,
+  DrawerClose,
+  DrawerTrigger
+} from "@/components/ui/drawer";
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +50,7 @@ const Navbar = () => {
         behavior: 'smooth'
       });
     }
+    setIsOpen(false);
   };
 
   return (
@@ -64,7 +72,7 @@ const Navbar = () => {
             <div
               key={section}
               className={cn(
-                "nav-link capitalize text-white/80 hover:text-white",
+                "nav-link capitalize text-white/80 hover:text-white px-4 py-2 cursor-pointer",
                 activeSection === section ? "active text-white" : ""
               )}
               onClick={() => scrollToSection(section)}
@@ -74,28 +82,34 @@ const Navbar = () => {
           ))}
         </div>
         
-        {/* Mobile Menu Button - simplified for this version */}
+        {/* Mobile Menu */}
         <div className="md:hidden">
-          <button
-            className="p-2 text-white/80 hover:text-white"
-            aria-label="Toggle Menu"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          </button>
+          <Drawer open={isOpen} onOpenChange={setIsOpen}>
+            <DrawerTrigger asChild>
+              <button
+                className="p-2 text-white/80 hover:text-white"
+                aria-label="Toggle Menu"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+            </DrawerTrigger>
+            <DrawerContent className="bg-indigo-900/95 backdrop-blur-md">
+              <div className="p-6 flex flex-col space-y-4">
+                {['home', 'skills', 'projects', 'contact'].map((section) => (
+                  <DrawerClose
+                    key={section}
+                    className={cn(
+                      "nav-link capitalize text-white/80 hover:text-white px-4 py-3 text-xl font-medium cursor-pointer text-center",
+                      activeSection === section ? "active text-white" : ""
+                    )}
+                    onClick={() => scrollToSection(section)}
+                  >
+                    {section}
+                  </DrawerClose>
+                ))}
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
       </div>
     </nav>
