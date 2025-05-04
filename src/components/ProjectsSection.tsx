@@ -49,7 +49,7 @@ const ProjectsSection = () => {
   ];
 
   const [activeProject, setActiveProject] = useState(0);
-  const [direction, setDirection] = useState("right");
+  const [direction, setDirection] = useState<"left" | "right">("right");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleNext = () => {
@@ -62,31 +62,21 @@ const ProjectsSection = () => {
     setActiveProject(prev => (prev - 1 + projects.length) % projects.length);
   };
 
-  const handleCardClick = (index: number) => {
-    setDirection(index > activeProject ? "right" : "left");
-    setActiveProject(index);
+  const getClassForIndex = (index: number) => {
+    if (index === activeProject) return "active";
+    if (
+      (direction === "right" && ((index === activeProject + 1) || (activeProject === projects.length - 1 && index === 0))) ||
+      (direction === "left" && ((index === activeProject - 1) || (activeProject === 0 && index === projects.length - 1)))
+    ) 
+      return "next";
+    return "inactive";
   };
 
   useEffect(() => {
-    // Apply animation classes based on the selected project
-    const projectCards = document.querySelectorAll(".project-card");
-    projectCards.forEach((card, index) => {
-      const htmlCard = card as HTMLElement;
-      
-      if (index === activeProject) {
-        htmlCard.style.transform = "translateX(0) scale(1)";
-        htmlCard.style.opacity = "1";
-        htmlCard.style.zIndex = "10";
-      } else if (index < activeProject) {
-        htmlCard.style.transform = "translateX(-100%) scale(0.8)";
-        htmlCard.style.opacity = "0.5";
-        htmlCard.style.zIndex = `${5 - Math.abs(activeProject - index)}`;
-      } else {
-        htmlCard.style.transform = "translateX(100%) scale(0.8)";
-        htmlCard.style.opacity = "0.5";
-        htmlCard.style.zIndex = `${5 - Math.abs(activeProject - index)}`;
-      }
-    });
+    const interval = setInterval(() => {
+      handleNext();
+    }, 6000);
+    return () => clearInterval(interval);
   }, [activeProject]);
 
   return (
@@ -96,53 +86,49 @@ const ProjectsSection = () => {
           My <span className="text-gradient">Projects</span>
         </h2>
         
-        <div className="flex flex-col lg:flex-row gap-8 items-center">
-          {/* Project Navigation - Stack on the left */}
-          <div className="w-full lg:w-1/3">
-            <div className="flex flex-col space-y-3">
-              {projects.map((project, index) => (
-                <button
-                  key={project.id}
-                  className={`p-4 text-left rounded-lg transition-all duration-300 ${
-                    activeProject === index 
-                      ? "bg-primary/20 border-l-4 border-primary" 
-                      : "bg-card/50 hover:bg-card"
-                  }`}
-                  onClick={() => handleCardClick(index)}
-                >
-                  <h3 className="font-medium">{project.title}</h3>
-                </button>
-              ))}
-            </div>
+        <div className="relative overflow-hidden w-full">
+          {/* Project Selection Menu */}
+          <div className="flex justify-center mb-8 space-x-2">
+            {projects.map((project, index) => (
+              <button
+                key={project.id}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  activeProject === index 
+                    ? "bg-primary w-8" 
+                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                }`}
+                onClick={() => {
+                  setDirection(index > activeProject ? "right" : "left");
+                  setActiveProject(index);
+                }}
+              />
+            ))}
           </div>
           
-          {/* Project Cards Display */}
-          <div className="w-full lg:w-2/3 relative h-[500px]">
-            <div ref={containerRef} className="relative w-full h-full">
-              {projects.map((project, index) => (
-                <div
-                  key={project.id}
-                  className={`project-card absolute top-0 left-0 w-full bg-card rounded-xl overflow-hidden shadow-xl transition-all duration-500 h-full`}
-                  style={{
-                    transform: index === activeProject 
-                      ? "translateX(0) scale(1)" 
-                      : index < activeProject 
-                        ? "translateX(-100%) scale(0.8)" 
-                        : "translateX(100%) scale(0.8)",
-                    opacity: index === activeProject ? 1 : 0.5,
-                    zIndex: index === activeProject ? 10 : 5 - Math.abs(activeProject - index)
-                  }}
-                  onClick={() => handleCardClick(index)}
-                >
-                  <div className="relative h-60 overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+          {/* Cards Container */}
+          <div className="relative h-[500px] md:h-[400px] w-full">
+            {projects.map((project, index) => (
+              <div
+                key={project.id}
+                className={`absolute top-0 left-0 w-full h-full transition-all duration-500 ease-in-out p-4 ${
+                  getClassForIndex(index) === "active" 
+                    ? "opacity-100 translate-x-0 z-20" 
+                    : getClassForIndex(index) === "next"
+                      ? (direction === "right" ? "opacity-0 translate-x-full z-10" : "opacity-0 -translate-x-full z-10")
+                      : "opacity-0 scale-95 z-0"
+                }`}
+              >
+                <div className="bg-card h-full rounded-xl overflow-hidden shadow-lg flex flex-col md:flex-row glass-card">
+                  <div className="md:w-1/2 relative">
+                    <div className="h-48 md:h-full bg-gradient-to-br from-primary/30 to-accent/30">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover mix-blend-overlay"
+                      />
+                    </div>
                   </div>
-                  <div className="p-6">
+                  <div className="p-6 md:w-1/2 flex flex-col justify-center">
                     <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                     <p className="text-muted-foreground mb-4">{project.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -153,35 +139,37 @@ const ProjectsSection = () => {
                       ))}
                     </div>
                     <a 
-                      href={project.link} 
-                      className="inline-flex items-center text-primary hover:underline"
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer" 
+                      className="inline-flex items-center text-primary hover:underline mt-auto"
                     >
                       View Project <ExternalLink className="ml-1 h-4 w-4" />
                     </a>
                   </div>
                 </div>
-              ))}
-            </div>
-            
-            {/* Navigation Arrows */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-4 pointer-events-none">
-              <Button 
-                onClick={handlePrev} 
-                variant="secondary" 
-                size="icon" 
-                className="rounded-full bg-background/80 backdrop-blur-sm pointer-events-auto"
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
-              <Button 
-                onClick={handleNext} 
-                variant="secondary" 
-                size="icon" 
-                className="rounded-full bg-background/80 backdrop-blur-sm pointer-events-auto"
-              >
-                <ArrowRight className="h-5 w-5" />
-              </Button>
-            </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation */}
+          <div className="flex justify-between absolute top-1/2 left-4 right-4 -translate-y-1/2 z-30">
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full bg-background/80 backdrop-blur-sm border-border"
+              onClick={handlePrev}
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full bg-background/80 backdrop-blur-sm border-border"
+              onClick={handleNext}
+            >
+              <ArrowRight className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </div>
