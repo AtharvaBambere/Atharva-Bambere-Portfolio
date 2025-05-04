@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from "react";
-import { AnimatedButton } from "@/components/ui/animated-button";
+import React, { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, ExternalLink } from "lucide-react";
 
 interface Project {
@@ -50,6 +50,7 @@ const ProjectsSection = () => {
 
   const [activeProject, setActiveProject] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleNext = () => {
     setDirection("right");
@@ -119,11 +120,11 @@ const ProjectsSection = () => {
               >
                 <div className="bg-card h-full rounded-xl overflow-hidden shadow-lg flex flex-col md:flex-row glass-card">
                   <div className="md:w-1/2 relative">
-                    <div className="h-48 md:h-full">
+                    <div className="h-48 md:h-full bg-gradient-to-br from-primary/30 to-accent/30">
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover mix-blend-overlay"
                       />
                     </div>
                   </div>
@@ -153,20 +154,22 @@ const ProjectsSection = () => {
 
           {/* Navigation */}
           <div className="flex justify-between absolute top-1/2 left-4 right-4 -translate-y-1/2 z-30">
-            <AnimatedButton
-              className="rounded-full bg-background/80 backdrop-blur-sm border border-border p-2"
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full bg-background/80 backdrop-blur-sm border-border"
               onClick={handlePrev}
-              icon={<ArrowLeft className="h-4 w-4" />}
             >
-              Prev
-            </AnimatedButton>
-            <AnimatedButton
-              className="rounded-full bg-background/80 backdrop-blur-sm border border-border p-2"
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full bg-background/80 backdrop-blur-sm border-border"
               onClick={handleNext}
-              icon={<ArrowRight className="h-4 w-4" />}
             >
-              Next
-            </AnimatedButton>
+              <ArrowRight className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </div>

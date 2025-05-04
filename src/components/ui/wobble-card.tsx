@@ -1,75 +1,77 @@
 
-import React, { useState, useRef, useCallback, useEffect } from "react";
-import { cn } from "@/lib/utils";
+"use client";
 
-interface WobbleCardProps {
-  children: React.ReactNode;
-  className?: string;
-  containerClassName?: string;
-}
+import React, { useState } from "react";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 
-export const WobbleCard: React.FC<WobbleCardProps> = ({
+export const WobbleCard = ({
   children,
   className,
   containerClassName,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  containerClassName?: string;
 }) => {
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-  const cardRef = useRef<HTMLDivElement | null>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!cardRef.current) return;
-    const card = cardRef.current;
-    const rect = card.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
 
-    const angleY = ((mouseX - centerX) / (rect.width / 2)) * 10;
-    const angleX = ((centerY - mouseY) / (rect.height / 2)) * 10;
+  const rotateX = useTransform(
+    mouseYSpring,
+    [-0.5, 0.5],
+    ["17.5deg", "-17.5deg"]
+  );
+  const rotateY = useTransform(
+    mouseXSpring,
+    [-0.5, 0.5],
+    ["-17.5deg", "17.5deg"]
+  );
 
-    setRotateX(angleX);
-    setRotateY(angleY);
-  }, []);
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const rect = (e.target as HTMLElement).getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
 
-  const handleMouseLeave = useCallback(() => {
-    setRotateX(0);
-    setRotateY(0);
-  }, []);
-
-  useEffect(() => {
-    const card = cardRef.current;
-    if (card) {
-      card.addEventListener("mousemove", handleMouseMove);
-      card.addEventListener("mouseleave", handleMouseLeave);
-    }
-    return () => {
-      if (card) {
-        card.removeEventListener("mousemove", handleMouseMove);
-        card.removeEventListener("mouseleave", handleMouseLeave);
-      }
-    };
-  }, [handleMouseMove, handleMouseLeave]);
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
-    <div
-      ref={cardRef}
-      className={cn("relative overflow-hidden rounded-2xl p-px", containerClassName)}
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       style={{
-        perspective: "1000px",
+        rotateY,
+        rotateX,
         transformStyle: "preserve-3d",
       }}
+      className={`relative w-full rounded-xl bg-gradient-to-br from-primary/80 via-primary to-accent/80 ${containerClassName}`}
     >
       <div
-        className={cn("relative h-full w-full rounded-[inherit] bg-gradient-to-br from-primary to-accent/60 p-6", className)}
         style={{
-          transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-          transition: "transform 0.2s ease-out",
+          transform: "translateZ(75px)",
+          transformStyle: "preserve-3d",
         }}
+        className={`inset-4 grid place-content-start p-6 md:p-8 ${className}`}
       >
         {children}
       </div>
-    </div>
+    </motion.div>
   );
 };

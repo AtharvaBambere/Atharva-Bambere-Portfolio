@@ -14,7 +14,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-gradient-to-b from-background to-secondary/30">
+    <section id="contact" className="py-24 bg-secondary/20">
       <div className="container">
         <h2 className="section-title">
           Let's Work <span className="text-gradient">Together</span>
@@ -29,16 +29,17 @@ const ContactSection = () => {
               <h3 className="text-2xl font-semibold mb-6">Get In Touch</h3>
               <div className="space-y-6">
                 <AnimatedButton 
-                  className="w-full bg-primary hover:bg-primary/90 text-white"
-                  icon={<Mail className="h-5 w-5" />}
+                  className="w-full"
                   onClick={handleEmailClick}
+                  icon={<Mail className="h-5 w-5" />}
                 >
                   Drop a Mail
                 </AnimatedButton>
                 <AnimatedButton 
-                  className="w-full border border-border hover:bg-secondary"
-                  icon={<Download className="h-5 w-5" />}
+                  variant="outline"
+                  className="w-full"
                   onClick={handleResumeDownload}
+                  icon={<Download className="h-5 w-5" />}
                 >
                   Download Resume
                 </AnimatedButton>
@@ -60,7 +61,7 @@ const ContactSection = () => {
                   href="https://github.com/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition hover:-translate-y-1 glass-card"
+                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1 glass-card"
                 >
                   <Github className="h-6 w-6" />
                 </a>
@@ -68,7 +69,7 @@ const ContactSection = () => {
                   href="https://linkedin.com/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition hover:-translate-y-1 glass-card"
+                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1 glass-card"
                 >
                   <Linkedin className="h-6 w-6 text-blue-400" />
                 </a>
@@ -76,7 +77,7 @@ const ContactSection = () => {
                   href="https://instagram.com/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition hover:-translate-y-1 glass-card"
+                  className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1 glass-card"
                 >
                   <Instagram className="h-6 w-6 text-pink-400" />
                 </a>
