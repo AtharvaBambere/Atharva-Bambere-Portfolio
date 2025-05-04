@@ -1,8 +1,7 @@
 
 import React from "react";
-import { AnimatedButton } from "@/components/ui/animated-button";
+import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { Cover } from "@/components/ui/cover";
 
 interface HomeSectionProps {
   scrollToSection: (section: string) => void;
@@ -13,8 +12,8 @@ const HomeSection: React.FC<HomeSectionProps> = ({ scrollToSection }) => {
     <section id="home" className="min-h-screen flex items-center section-padding pt-24">
       <div className="container max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex flex-col justify-center animate-fade-in">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/90">
-            Hello, I'm <Cover>Atharva</Cover>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Hello, I'm <span className="text-gradient">Atharva</span>
           </h1>
           
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground mb-6 delayed-fade">
@@ -28,20 +27,20 @@ const HomeSection: React.FC<HomeSectionProps> = ({ scrollToSection }) => {
           </p>
           
           <div className="flex flex-wrap gap-4 delayed-fade" style={{ animationDelay: '0.6s' }}>
-            <AnimatedButton 
+            <Button 
               onClick={() => scrollToSection("projects")}
-              icon={<ArrowRight className="h-5 w-5" />}
-              className="px-6 py-2.5"
+              className="bg-primary hover:bg-primary/90 text-white"
             >
-              View Projects
-            </AnimatedButton>
+              View Projects <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
             
-            <AnimatedButton 
+            <Button 
               onClick={() => scrollToSection("contact")}
-              variant="outline"
+              variant="outline" 
+              className="border-primary text-primary hover:bg-primary/10"
             >
               Contact Me
-            </AnimatedButton>
+            </Button>
           </div>
         </div>
         
