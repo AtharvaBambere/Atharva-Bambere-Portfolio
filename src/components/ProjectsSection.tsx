@@ -106,7 +106,7 @@ const ProjectsSection = () => {
           </div>
           
           {/* Cards Container */}
-          <div className="relative h-[500px] md:h-[400px] w-full">
+          <div className="relative h-[600px] sm:h-[500px] md:h-[400px] w-full">
             {projects.map((project, index) => (
               <div
                 key={project.id}
@@ -128,7 +128,7 @@ const ProjectsSection = () => {
                       />
                     </div>
                   </div>
-                  <div className="p-6 md:w-1/2 flex flex-col justify-center">
+                  <div className="p-6 md:w-1/2 flex flex-col">
                     <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                     <p className="text-muted-foreground mb-4">{project.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -138,13 +138,15 @@ const ProjectsSection = () => {
                         </span>
                       ))}
                     </div>
-                    <Button 
-                      variant="outline"
-                      className="mt-auto inline-flex items-center border-primary/50 hover:bg-primary/10"
-                      onClick={() => window.open(project.link, '_blank')}
-                    >
-                      View Project <ArrowRight className="ml-1 h-4 w-4" />
-                    </Button>
+                    <div className="mt-auto pt-4">
+                      <Button 
+                        variant="outline"
+                        className="w-full sm:w-auto inline-flex items-center border-primary/50 hover:bg-primary/10"
+                        onClick={() => window.open(project.link, '_blank')}
+                      >
+                        View Project <ArrowRight className="ml-1 h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
