@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 
 interface Project {
   id: number;
@@ -120,11 +120,11 @@ const ProjectsSection = () => {
               >
                 <div className="bg-card h-full rounded-xl overflow-hidden shadow-lg flex flex-col md:flex-row glass-card">
                   <div className="md:w-1/2 relative">
-                    <div className="h-48 md:h-full bg-gradient-to-br from-primary/30 to-accent/30">
+                    <div className="h-48 md:h-full">
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover mix-blend-overlay"
+                        className="w-full h-full object-cover"
                       />
                     </div>
                   </div>
@@ -138,14 +138,13 @@ const ProjectsSection = () => {
                         </span>
                       ))}
                     </div>
-                    <a 
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer" 
-                      className="inline-flex items-center text-primary hover:underline mt-auto"
+                    <Button 
+                      variant="outline"
+                      className="mt-auto inline-flex items-center border-primary/50 hover:bg-primary/10"
+                      onClick={() => window.open(project.link, '_blank')}
                     >
-                      View Project <ExternalLink className="ml-1 h-4 w-4" />
-                    </a>
+                      View Project <ArrowRight className="ml-1 h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
               </div>

@@ -48,7 +48,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({ scrollToSection }) => {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-3xl animate-pulse-soft"></div>
             <img 
-              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop"
+              src="/lovable-uploads/9a4cafe9-1678-46ad-bcba-0bce4de897e2.png"
               alt="Atharva" 
               className="rounded-2xl object-cover h-80 w-80 relative z-10 animate-card-float"
             />

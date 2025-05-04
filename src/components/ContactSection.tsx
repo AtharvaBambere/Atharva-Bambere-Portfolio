@@ -58,7 +58,7 @@ const ContactSection = () => {
               
               <div className="flex justify-center md:justify-start gap-4">
                 <a 
-                  href="https://github.com/" 
+                  href="https://github.com/AtharvaBambere" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1 glass-card"
@@ -66,7 +66,7 @@ const ContactSection = () => {
                   <Github className="h-6 w-6" />
                 </a>
                 <a 
-                  href="https://linkedin.com/" 
+                  href="https://www.linkedin.com/in/atharva-bambere/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1 glass-card"
@@ -74,7 +74,7 @@ const ContactSection = () => {
                   <Linkedin className="h-6 w-6 text-blue-400" />
                 </a>
                 <a 
-                  href="https://instagram.com/" 
+                  href="https://www.instagram.com/_ab_2104/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="p-3 bg-card rounded-full shadow-md hover:shadow-lg transition-shadow hover:-translate-y-1 glass-card"
